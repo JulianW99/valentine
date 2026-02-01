@@ -58,7 +58,7 @@ export default function Page() {
           />
           <img
             className="h-[230px] rounded-lg shadow-lg"
-            src="https://gifdb.com/images/high/cute-Love-bear-roses-ou7zho5oosxnpo6k.gif"
+            src="https://media.gifdb.com/blue-bear-giving-rosas-pz5pq0lhfx8mz4xm.gif"
           />
           <h1 className="text-4xl md:text-6xl my-4 text-center">
             Will you be my Valentine?
