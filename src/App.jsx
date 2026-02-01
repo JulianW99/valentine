@@ -61,7 +61,7 @@ export default function Page() {
             src="https://media.gifdb.com/blue-bear-giving-rosas-pz5pq0lhfx8mz4xm.gif"
           />
           <h1 className="text-4xl md:text-6xl my-4 text-center">
-            Will you be my Valentine?
+            Emilia, will you be my Valentine?
           </h1>
           <div className="flex flex-wrap justify-center gap-2 items-center">
             <button
