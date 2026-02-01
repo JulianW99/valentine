@@ -1,10 +1,25 @@
 import { useState } from "react";
-import lovesvg from "./assets/All You Need Is Love SVG Cut File.svg";
-import lovesvg2 from "./assets/Love In The Air SVG Cut File.svg";
+import Confetti from "react-confetti"; 
+import { useWindowSize } from "react-use"; 
+
+// Importiere dein Hintergrundbild hier, falls es im src/assets Ordner liegt
+// Falls es im public ordner liegt, brauchst du diesen Import nicht (siehe unten beim div)
+import bgImage from "./assets/bg.jpg"; // <-- Passe den Namen an!
+
+const phrases = [
+  "No", "Are you sure?", "Really sure?", "Think again!", "Last chance!", 
+  "Surely not?", "You might regret this!", "Give it another thought!", 
+  "Are you absolutely certain?", "This could be a mistake!", "Have a heart!", 
+  "Don't be so cold!", "Change of heart?", "Wouldn't you reconsider?", 
+  "Is that your final answer?", "You're breaking my heart ;(", 
+  "Plsss? :( You're breaking my heart"
+];
 
 export default function Page() {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
+  const { width, height } = useWindowSize();
+
   const yesButtonSize = noCount * 20 + 16;
 
   const handleNoClick = () => {
@@ -12,68 +27,61 @@ export default function Page() {
   };
 
   const getNoButtonText = () => {
-    const phrases = [
-      "No",
-      "Are you sure?",
-      "Really sure?",
-      "Think again!",
-      "Last chance!",
-      "Surely not?",
-      "You might regret this!",
-      "Give it another thought!",
-      "Are you absolutely certain?",
-      "This could be a mistake!",
-      "Have a heart!",
-      "Don't be so cold!",
-      "Change of heart?",
-      "Wouldn't you reconsider?",
-      "Is that your final answer?",
-      "You're breaking my heart ;(",
-      "Is that your final answer?",
-      "You're breaking my heart ;(",
-      "Plsss? :( You're breaking my heart",
-    ];
-
     return phrases[Math.min(noCount, phrases.length - 1)];
   };
 
   return (
-    <div className="overflow-hidden flex flex-col items-center justify-center pt-4 h-screen -mt-16 selection:bg-rose-600 selection:text-white text-zinc-900">
+    // HINTERGRUND-ANPASSUNG:
+    // Hier setzen wir das Bild als Hintergrund, der den ganzen Screen füllt (bg-cover)
+    <div 
+      className="flex flex-col items-center justify-center h-screen -mt-16 selection:bg-rose-600 selection:text-white text-zinc-900 overflow-hidden relative bg-cover bg-center"
+      style={{ 
+        backgroundImage: `url(${bgImage})` // Nutze hier dein importiertes Bild
+        // ODER wenn es im public Ordner ist: backgroundImage: `url('/bg.jpg')`
+      }}
+    >
+      
+      {/* Wenn "Ja" gedrückt wird, regnet es Konfetti */}
+      {yesPressed && <Confetti width={width} height={height} recycle={false} numberOfPieces={500} />}
+
+      {/* Ein dunklerer Layer über dem Bild, damit der Text lesbar bleibt (optional) */}
+      <div className="absolute inset-0 bg-white/30 backdrop-blur-sm -z-10"></div>
+
       {yesPressed ? (
         <>
-          <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" />
-          <div className="text-4xl md:text-6xl font-bold my-4">
-            Ok Yayyyyy!!!
+          <img 
+            src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" 
+            alt="Bear Kiss"
+            className="rounded-lg shadow-xl mb-4" 
+          />
+          <div className="text-4xl md:text-6xl font-bold my-4 text-rose-600 animate-bounce">
+            Ok Yayyyyy!!! ❤️
           </div>
         </>
       ) : (
         <>
           <img
-            src={lovesvg}
-            className="fixed animate-pulse top-10 md:left-24 left-6 md:w-40 w-28"
-          />
-          <img
-            src={lovesvg2}
-            className="fixed bottom-16 -z-10 animate-pulse md:right-24 right-10 md:w-40 w-32"
-          />
-          <img
-            className="h-[230px] rounded-lg shadow-lg"
+            className="h-[230px] rounded-lg shadow-2xl hover:scale-105 transition-transform duration-300"
             src="https://media.gifdb.com/blue-bear-giving-rosas-pz5pq0lhfx8mz4xm.gif"
+            alt="Cute Bear"
           />
-          <h1 className="text-4xl md:text-6xl my-4 text-center">
+          
+          <h1 className="text-4xl md:text-6xl my-8 text-center font-extrabold text-zinc-800 drop-shadow-sm">
             Emilia, will you be my Valentine?
           </h1>
-          <div className="flex flex-wrap justify-center gap-2 items-center">
+          
+          <div className="flex flex-wrap justify-center gap-4 items-center">
             <button
-              className={`bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg mr-4`}
+              className={`bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-110`}
               style={{ fontSize: yesButtonSize }}
               onClick={() => setYesPressed(true)}
             >
               Yes
             </button>
+            
             <button
               onClick={handleNoClick}
-              className=" bg-rose-500 hover:bg-rose-600 rounded-lg text-white font-bold py-2 px-4"
+              className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
               {noCount === 0 ? "No" : getNoButtonText()}
             </button>
@@ -88,14 +96,12 @@ export default function Page() {
 const Footer = () => {
   return (
     <a
-      className="fixed bottom-2 right-2 backdrop-blur-md opacity-80 hover:opacity-95 border p-1 rounded border-rose-300"
+      className="fixed bottom-2 right-2 text-xs md:text-sm backdrop-blur-md bg-white/30 p-2 rounded-lg border border-white/50 hover:bg-white/50 transition-colors shadow-sm"
       href="https://github.com/JulianW99/valentine"
-      target="__blank"
+      target="_blank"
+      rel="noreferrer"
     >
-      Made with{" "}
-      <span role="img" aria-label="heart">
-        ❤️
-      </span>
+      Made with <span className="text-red-500 animate-pulse">❤️</span>
     </a>
   );
 };
