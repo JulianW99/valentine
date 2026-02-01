@@ -4,7 +4,7 @@ import { useWindowSize } from "react-use";
 
 // Importiere dein Hintergrundbild hier, falls es im src/assets Ordner liegt
 // Falls es im public ordner liegt, brauchst du diesen Import nicht (siehe unten beim div)
-import bgImage from "./assets/bg.jpg"; // <-- Passe den Namen an!
+import bgImage from "./assets/bg1.webp"; // <-- Passe den Namen an!
 
 const phrases = [
   "No", "Are you sure?", "Really sure?", "Think again!", "Last chance!", 
@@ -62,7 +62,7 @@ export default function Page() {
         <>
           <img
             className="h-[230px] rounded-lg shadow-2xl hover:scale-105 transition-transform duration-300"
-            src="https://media.gifdb.com/blue-bear-giving-rosas-pz5pq0lhfx8mz4xm.gif"
+            src="https://media1.tenor.com/m/4w_3lAm-atIAAAAC/teddy-bear-for-you.gif"
             alt="Cute Bear"
           />
           
